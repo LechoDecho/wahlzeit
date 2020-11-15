@@ -26,6 +26,7 @@ CREATE TABLE photos (
 	width integer,
 	height integer,
 	tags text,
+	location text,
 	status integer,
 	praise_sum integer,
 	no_votes integer,

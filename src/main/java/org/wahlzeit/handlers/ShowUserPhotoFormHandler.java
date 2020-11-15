@@ -52,6 +52,9 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 		String tags = photo.getTags().asString();
 		tags = !StringUtil.isNullOrEmptyString(tags) ? tags : us.cfg().getNoTags();
 		part.maskAndAddString(Photo.TAGS, tags);
+
+		String location = photo.getLocation().toString();
+		part.addString(Photo.LOCATION, location);
 		
 		String photoStatus = us.cfg().asValueString(photo.getStatus());
 		part.addString(Photo.STATUS, photoStatus);

@@ -44,6 +44,7 @@ public class Photo extends DataObject {
 	public static final String KEYWORDS = "keywords";
 
 	public static final String TAGS = "tags";
+	public static final String LOCATION = "location";
 
 	public static final String STATUS = "status";
 	public static final String IS_INVISIBLE = "isInvisible";
@@ -87,6 +88,11 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	protected Tags tags = Tags.EMPTY_TAGS;
+
+	/**
+	 * 
+	 */
+	protected Location location = new Location(new Coordinate(Math.random(), Math.random(), Math.random()));
 
 	/**
 	 * 
@@ -157,6 +163,8 @@ public class Photo extends DataObject {
 
 		tags = new Tags(rset.getString("tags"));
 
+		location = new  Location(new Coordinate(rset.getString("location")));
+
 		status = PhotoStatus.getFromInt(rset.getInt("status"));
 		praiseSum = rset.getInt("praise_sum");
 		noVotes = rset.getInt("no_votes");
@@ -180,6 +188,7 @@ public class Photo extends DataObject {
 		rset.updateInt("width", width);
 		rset.updateInt("height", height);
 		rset.updateString("tags", tags.asString());
+		rset.updateString("location", location.toString());
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
@@ -467,6 +476,22 @@ public class Photo extends DataObject {
 	 */
 	public void setTags(Tags newTags) {
 		tags = newTags;
+		incWriteCount();
+	}
+	/**
+	 * 
+	 * @methodtype get
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * 
+	 * @methodtype set
+	 */
+	public void setLocation(Location newLocation) {
+		location = newLocation;
 		incWriteCount();
 	}
 	
