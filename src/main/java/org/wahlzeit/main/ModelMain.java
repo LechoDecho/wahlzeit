@@ -22,10 +22,27 @@ package org.wahlzeit.main;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
+import org.wahlzeit.model.BirdPhotoManager;
+import org.wahlzeit.model.Case;
+import org.wahlzeit.model.CaseId;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoCaseManager;
+import org.wahlzeit.model.PhotoFactory;
+import org.wahlzeit.model.PhotoId;
+import org.wahlzeit.model.User;
+import org.wahlzeit.model.UserManager;
+import org.wahlzeit.services.ConfigDir;
+import org.wahlzeit.services.DatabaseConnection;
+import org.wahlzeit.services.FileUtil;
+import org.wahlzeit.services.SessionManager;
+import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.SysLog;
 import org.wahlzeit.servlets.AbstractServlet;
 
 /**
@@ -92,7 +109,7 @@ public abstract class ModelMain extends AbstractMain {
 		User user = new User(userName, password, emailAddress, confirmationCode);
 		userManager.addUser(user);
 		
-		PhotoManager photoManager = PhotoManager.getInstance();
+		BirdPhotoManager photoManager = (BirdPhotoManager) BirdPhotoManager.getInstance();
 		File photoDirFile = new File(photoDir);
 		FileFilter photoFileFilter = new FileFilter() {
 			public boolean accept(File file) {
@@ -178,7 +195,7 @@ public abstract class ModelMain extends AbstractMain {
 	 */
 	public void saveAll() throws SQLException {
 		PhotoCaseManager.getInstance().savePhotoCases();
-		PhotoManager.getInstance().savePhotos();			
+		BirdPhotoManager.getInstance().savePhotos();			
 		UserManager.getInstance().saveUsers();
 
 		saveGlobals();

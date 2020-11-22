@@ -55,6 +55,10 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
+		String span = us.getAndSaveAsString(args, BirdPhoto.SPAN);
+		String altName = us.getAndSaveAsString(args, BirdPhoto.ALTNAME);
+
+
 
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
@@ -65,7 +69,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			PhotoManager pm = PhotoManager.getInstance();
 			String sourceFileName = us.getAsString(args, "fileName");
 			File file = new File(sourceFileName);
-			Photo photo = pm.createPhoto(file);
+			BirdPhoto photo = (BirdPhoto)pm.createPhoto(file);
 
 			String targetFileName = SysConfig.getBackupDir().asString() + photo.getId().asString();
 			createBackup(sourceFileName, targetFileName);
@@ -74,7 +78,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			user.addPhoto(photo); 
 			
 			photo.setTags(new Tags(tags));
-
+			photo.setAltName(altName);
+			photo.setSpan(Integer.parseInt(span));
 			pm.savePhoto(photo);
 
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
