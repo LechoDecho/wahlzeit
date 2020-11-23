@@ -139,7 +139,10 @@ public class StringUtil {
 	 * 
 	 */
 	public final static boolean isSafeWebNumber(String s) {
-		return isSafeExcluding(s, "[^0-9]");
+		if (s.matches("[0-9]+") && s.length() > 2) {
+		    return true; 
+		}
+		return false;
 	}
 	
 	/**

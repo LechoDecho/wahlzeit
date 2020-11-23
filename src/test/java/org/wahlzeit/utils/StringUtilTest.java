@@ -20,11 +20,13 @@
 
 package org.wahlzeit.utils;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test cases for the StringUtil class.
@@ -45,6 +47,14 @@ public class StringUtilTest {
 		assertEquals("/folder/sub123 fol_der_/", url2);
 
 		assertEquals("/", StringUtil.pathAsUrlString(File.separator));
+	}
+
+	@Test
+	public void testIsSafeStringNumber() {
+		assertTrue(StringUtil.isSafeStringNumber("0"));
+		assertFalse(StringUtil.isSafeStringNumber("0sdasdas"));
+		assertFalse(StringUtil.isSafeStringNumber("as.-.12"));
+		assertFalse(StringUtil.isSafeStringNumber(".-./&"));
 	}
 
 }

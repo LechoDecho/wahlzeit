@@ -28,13 +28,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.wahlzeit.model.BirdPhotoManager;
 import org.wahlzeit.model.Case;
 import org.wahlzeit.model.CaseId;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoFactory;
 import org.wahlzeit.model.PhotoId;
+import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.services.ConfigDir;
@@ -109,7 +109,7 @@ public abstract class ModelMain extends AbstractMain {
 		User user = new User(userName, password, emailAddress, confirmationCode);
 		userManager.addUser(user);
 		
-		BirdPhotoManager photoManager = (BirdPhotoManager) BirdPhotoManager.getInstance();
+		PhotoManager photoManager = PhotoManager.getInstance();
 		File photoDirFile = new File(photoDir);
 		FileFilter photoFileFilter = new FileFilter() {
 			public boolean accept(File file) {
@@ -195,7 +195,7 @@ public abstract class ModelMain extends AbstractMain {
 	 */
 	public void saveAll() throws SQLException {
 		PhotoCaseManager.getInstance().savePhotoCases();
-		BirdPhotoManager.getInstance().savePhotos();			
+		PhotoManager.getInstance().savePhotos();			
 		UserManager.getInstance().saveUsers();
 
 		saveGlobals();
