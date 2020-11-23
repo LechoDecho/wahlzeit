@@ -18,17 +18,10 @@ public class Coordinate {
         this.z = z;
     }
 
-    public Coordinate(String coordinate) {
-
-        String[] coords = coordinate.split("/");
-
-        this.x = Double.parseDouble(coords[0]);
-        this.y = Double.parseDouble(coords[1]);
-        this.z = Double.parseDouble(coords[2]);
-    }
-
     public double getDistance(Coordinate that) {
 
+        if(that == null)
+            throw new IllegalArgumentException("Can not get Distance from null object");
         double x = that.x - this.x;
         double y = that.y - this.y;
         double z = that.z - this.z;
