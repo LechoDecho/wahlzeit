@@ -3,8 +3,6 @@ package org.wahlzeit.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.wahlzeit.services.SysLog;
-
 public class BirdPhotoFactory extends PhotoFactory {
 
     public BirdPhotoFactory() {
