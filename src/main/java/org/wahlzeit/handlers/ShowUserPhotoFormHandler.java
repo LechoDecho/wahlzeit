@@ -20,11 +20,19 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.*;
+import java.util.Map;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.utils.*;
-import org.wahlzeit.webparts.*;
+import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.BirdPhoto;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.User;
+import org.wahlzeit.model.UserLog;
+import org.wahlzeit.model.UserManager;
+import org.wahlzeit.model.UserSession;
+import org.wahlzeit.utils.HtmlUtil;
+import org.wahlzeit.utils.StringUtil;
+import org.wahlzeit.webparts.WebPart;
 
 /**
  * A handler class for a specific web form.
@@ -55,6 +63,12 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		String location = photo.getLocation().toString();
 		part.addString(Photo.LOCATION, location);
+
+		int span = ((BirdPhoto) photo).getSpan();
+		part.addString(BirdPhoto.SPAN, ""+span);
+
+		String altName =((BirdPhoto) photo).getAltName().toString();
+		part.addString(BirdPhoto.ALTNAME, altName);
 		
 		String photoStatus = us.cfg().asValueString(photo.getStatus());
 		part.addString(Photo.STATUS, photoStatus);

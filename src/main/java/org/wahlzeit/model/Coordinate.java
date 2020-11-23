@@ -1,10 +1,15 @@
 package org.wahlzeit.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Coordinate {
 
     private double x;
     private double y;
     private double z;
+
+    private static final double THRESHOLD = 0.0000001d;
 
     public Coordinate(double x, double y, double z) {
 
@@ -33,21 +38,15 @@ public class Coordinate {
 
     public boolean isEqual(Coordinate that) {
 
-        if (Double.compare(this.x, that.x) == 0 && 
-            Double.compare(this.y,that.y) == 0 && 
-            Double.compare(this.z, that.z) == 0 )
-            return true;
-        else
+        if (Math.abs(this.x - that.x) > THRESHOLD || 
+            Math.abs(this.y - that.y) > THRESHOLD || 
+            Math.abs(this.z - that.z) > THRESHOLD )
             return false;
+        else
+            return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-
-        if (o instanceof Coordinate)
-            return isEqual((Coordinate)o);
-        else return false;
-    }
+    
 
     public double getX() {
         return x;
@@ -59,5 +58,33 @@ public class Coordinate {
 
     public double getZ() {
         return z;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o instanceof Coordinate)
+            return isEqual((Coordinate)o);
+        else return false;
+    }
+
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateDouble("x", x);
+        rset.updateDouble("y", y);
+        rset.updateDouble("z", z);
     }
 }

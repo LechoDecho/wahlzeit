@@ -264,7 +264,7 @@ public class UserSession extends Session {
 	 * 
 	 */
 	public Photo getPhoto() {
-		return (Photo) savedArgs.get(PHOTO);
+		return (BirdPhoto) savedArgs.get(PHOTO);
 	}
 	
 	/**

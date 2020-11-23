@@ -65,6 +65,15 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 		}
 
+		if (!StringUtil.isLegalAltNameString(altName)) {
+			us.setMessage(us.cfg().getInputIsInvalid());
+			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
+		}
+
+		if (!StringUtil.isLegalSpanString(span)) {
+			span = "0";
+		}
+
 		try {
 			PhotoManager pm = PhotoManager.getInstance();
 			String sourceFileName = us.getAsString(args, "fileName");

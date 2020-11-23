@@ -85,6 +85,20 @@ public class StringUtil {
 	/**
 	 * 
 	 */
+	public final static boolean isLegalAltNameString(String s) {
+		return isSafeString(s);
+	}
+
+	/**
+	 * 
+	 */
+	public final static boolean isLegalSpanString(String s) {
+		return isSafeStringNumber(s);
+	}
+
+	/**
+	 * 
+	 */
 	public final static boolean isValidURL(String s) {
 		try {
 			return new URL(s) != null;
@@ -106,12 +120,26 @@ public class StringUtil {
 	public final static boolean isSafeString(String s) {
 		return isSafeWebString(s); // & isSafeQueryArg(s);
 	}
+
+	/**
+	 * 
+	 */
+	public final static boolean isSafeStringNumber(String s) {
+		return isSafeWebString(s); // & isSafeQueryArg(s);
+	}
 		
 	/**
 	 * 
 	 */
 	public final static boolean isSafeWebString(String s) {
 		return isSafeExcluding(s, "`'&<>;\"\\");
+	}
+
+	/**
+	 * 
+	 */
+	public final static boolean isSafeWebNumber(String s) {
+		return isSafeExcluding(s, "[^0-9]");
 	}
 	
 	/**
