@@ -49,13 +49,5 @@ public class StringUtilTest {
 		assertEquals("/", StringUtil.pathAsUrlString(File.separator));
 	}
 
-	@Test
-	public void testIsSafeStringNumber() {
-		assertTrue(StringUtil.isSafeStringNumber("0"));
-		assertFalse(StringUtil.isSafeStringNumber("0sdasdas"));
-		assertFalse(StringUtil.isSafeStringNumber("as.-.12"));
-		assertFalse(StringUtil.isSafeStringNumber(".-./&"));
-	}
-
 }
 
