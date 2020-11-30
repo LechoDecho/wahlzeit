@@ -31,32 +31,59 @@ import static org.junit.Assert.assertTrue;
  */
 public class CoordinateTest {
 
-    private static final double THRESHOLD = 0.0000001d;
+    private static final double THRESHOLD = 0.00001d;
 
-    private Coordinate coordinate1 = new Coordinate(1.0,2.0,3.0);
-    private Coordinate coordinate2 = new Coordinate(1.000000001, 2.0, 3.0);
-    private Coordinate coordinate3 = new Coordinate(5.0,6.0,7.0);
+    private Coordinate coordinate1 = new CartesianCoordinate(1.0, 2.0, 3.0);
+    private Coordinate coordinate2 = new CartesianCoordinate(1.000000001, 2.000000001, 3.000000001);
+    private Coordinate coordinate3 = new CartesianCoordinate(5.0, 6.0, 7.0);
 
-	/**
-	 *
-	 */
-	@Test
-	public void testCoordinateEquals() {
+    private Coordinate coordinate4 = new SphericCoordinate(3.7416573867739, 1.1071487177941, 0.64052231267943);
+    private Coordinate coordinate5 = new SphericCoordinate(3.741657386, 1.107148717, 0.640522312);
+    private Coordinate coordinate6 = new SphericCoordinate(10.488088481702, 0.87605805059819, 0.8400523908062);
 
-		assertTrue(coordinate1.equals(coordinate2));
-		assertTrue(coordinate1.equals(coordinate1));
-		assertFalse(coordinate1.equals(coordinate3));
+    /**
+     *
+     */
+    @Test
+    public void testCoordinateEquals() {
+
+        assertTrue(coordinate1.equals(coordinate2));
+        assertTrue(coordinate1.equals(coordinate1));
+        assertFalse(coordinate1.equals(coordinate3));
+        assertTrue(coordinate1.equals(coordinate4));
+        assertTrue(coordinate1.equals(coordinate5));
+        assertTrue(coordinate5.equals(coordinate2));
+        assertTrue(coordinate4.equals(coordinate2));
+        assertTrue(coordinate3.equals(coordinate6));
+        assertFalse(coordinate1.equals(null));
+        assertFalse(coordinate4.equals(null));
     }
 
     @Test
     public void testCoordinateDistance() {
 
-        assertEquals(Math.sqrt(48), coordinate1.getDistance(coordinate3), THRESHOLD);
-        assertEquals(Math.sqrt(0), coordinate1.getDistance(coordinate2), THRESHOLD);
+        assertEquals(Math.sqrt(48), coordinate1.getCartesianDistance(coordinate3), THRESHOLD);
+        assertEquals(Math.sqrt(0), coordinate1.getCartesianDistance(coordinate2), THRESHOLD);
+        assertEquals(Math.sqrt(48), coordinate1.getCartesianDistance(coordinate6), THRESHOLD);
+        assertEquals(Math.sqrt(0), coordinate1.getCartesianDistance(coordinate5), THRESHOLD);
+    }
+
+    @Test
+    public void testCoordinateCentralAngle() {
+
+        assertEquals(0.2617656028, coordinate1.getCentralAngle(coordinate3), THRESHOLD);
+        assertEquals(2.0503853382E-10, coordinate1.getCentralAngle(coordinate2), THRESHOLD);
+        assertEquals(0.2617656028, coordinate1.getCentralAngle(coordinate6), THRESHOLD);
+        assertEquals(2.0503853382E-10, coordinate1.getCentralAngle(coordinate5), THRESHOLD);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCoordinateDistanceNull() {
-        coordinate1.getDistance(null);
+        coordinate1.getCartesianDistance(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCoordinateCentralAngleNull() {
+        coordinate1.getCentralAngle(null);
     }
 }

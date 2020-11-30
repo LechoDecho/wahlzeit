@@ -29,9 +29,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class LocationTest {
 
-    private Coordinate coordinate1 = new Coordinate(1.0,2.0,3.0);
+	private Coordinate coordinate1 = new CartesianCoordinate(1.0, 2.0, 3.0);
 
-    private Location location1 = new Location(coordinate1);
+	private Location location1 = new Location(coordinate1);
 
 	/**
 	 *
@@ -40,5 +40,5 @@ public class LocationTest {
 	public void testLocationToString() {
 
 		assertEquals("1.0/2.0/3.0", location1.toString());
-    }
+	}
 }

@@ -4,11 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Location {
-    
+
     private Coordinate coordinate;
 
-    public Location(Coordinate coordinate)
-    {
+    public Location(Coordinate coordinate) {
         this.coordinate = coordinate;
     }
 
@@ -21,11 +20,12 @@ public class Location {
     }
 
     public void writeOn(ResultSet rset) throws SQLException {
-        coordinate.writeOn(rset);
+        coordinate.asCartesianCoordinate().writeOn(rset);
     }
 
     @Override
     public String toString() {
-        return coordinate.getX() + "/" + coordinate.getY() + "/" + coordinate.getZ();
+        return coordinate.asCartesianCoordinate().getX() + "/" + coordinate.asCartesianCoordinate().getY() + "/"
+                + coordinate.asCartesianCoordinate().getZ();
     }
 }
