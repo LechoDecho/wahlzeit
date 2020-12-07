@@ -3,13 +3,13 @@ package org.wahlzeit.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
+
+    private static final double ARCTANDIVBYZERO = 1.5707963267949d;
 
     private double x;
     private double y;
     private double z;
-
-    private static final double THRESHOLD = 0.00001d;
 
     public CartesianCoordinate(double x, double y, double z) {
 
@@ -45,31 +45,6 @@ public class CartesianCoordinate implements Coordinate {
     }
 
     @Override
-    public boolean equals(Object o) {
-
-        if (o instanceof Coordinate)
-            return IsEqual((Coordinate) o);
-        else
-            return false;
-    }
-
-    public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateDouble("x", x);
-        rset.updateDouble("y", y);
-        rset.updateDouble("z", z);
-    }
-
-    @Override
-    public boolean IsEqual(Coordinate coordinate) {
-
-        CartesianCoordinate that = coordinate.asCartesianCoordinate();
-
-        return !(Math.abs(this.x - that.x) > THRESHOLD || Math.abs(this.y - that.y) > THRESHOLD
-                || Math.abs(this.z - that.z) > THRESHOLD);
-        
-    }
-
-    @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
     }
@@ -78,30 +53,15 @@ public class CartesianCoordinate implements Coordinate {
     public SphericCoordinate asSphericCoordinate() {
 
         double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-        double theta = Math.atan(this.y / this.x);
-        double phi = Math.atan(Math.sqrt(this.x * this.x + this.y * this.y) / this.z);
+
+        double theta = ARCTANDIVBYZERO;
+        if( this.x >= THRESHOLD)
+            theta = Math.atan(this.y / this.x);
+        double phi = ARCTANDIVBYZERO;
+        if(this.z >= THRESHOLD)
+            phi = Math.atan(Math.sqrt(this.x * this.x + this.y * this.y) / this.z);
 
         return new SphericCoordinate(radius, theta, phi);
     }
 
-    @Override
-    public double getCartesianDistance(Coordinate coordinate) {
-
-        if (coordinate == null) {
-            throw new IllegalArgumentException("Null object! Can't calculate distance!");
-        }
-
-        CartesianCoordinate that = coordinate.asCartesianCoordinate();
-        double x = that.getX() - this.x;
-        double y = that.getY() - this.y;
-        double z = that.getZ() - this.z;
-
-        return Math.sqrt(x * x + y * y + z * z);
-    }
-
-    @Override
-    public double getCentralAngle(Coordinate coordinate) {
-        SphericCoordinate thisCoordinate = this.asSphericCoordinate();
-        return thisCoordinate.getCentralAngle(coordinate);
-    }
 }

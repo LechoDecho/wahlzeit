@@ -10,5 +10,5 @@ public interface Coordinate {
     public SphericCoordinate asSphericCoordinate();
     public double getCentralAngle(Coordinate coordinate);
     public boolean IsEqual(Coordinate coordinate);
-
+    public void writeOn(ResultSet rset) throws SQLException;
 }

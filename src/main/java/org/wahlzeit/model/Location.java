@@ -20,12 +20,11 @@ public class Location {
     }
 
     public void writeOn(ResultSet rset) throws SQLException {
-        coordinate.asCartesianCoordinate().writeOn(rset);
+        coordinate.writeOn(rset);
     }
 
     @Override
     public String toString() {
-        return coordinate.asCartesianCoordinate().getX() + "/" + coordinate.asCartesianCoordinate().getY() + "/"
-                + coordinate.asCartesianCoordinate().getZ();
+        return coordinate.toString();
     }
 }

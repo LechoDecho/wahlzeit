@@ -32,14 +32,17 @@ import static org.junit.Assert.assertTrue;
 public class CoordinateTest {
 
     private static final double THRESHOLD = 0.00001d;
+    private static final double ARCTANDIVBYZERO = 1.5707963267949d;
 
     private Coordinate coordinate1 = new CartesianCoordinate(1.0, 2.0, 3.0);
     private Coordinate coordinate2 = new CartesianCoordinate(1.000000001, 2.000000001, 3.000000001);
     private Coordinate coordinate3 = new CartesianCoordinate(5.0, 6.0, 7.0);
+    private Coordinate coordinate7 = new CartesianCoordinate(0, 5.0, 0);
 
     private Coordinate coordinate4 = new SphericCoordinate(3.7416573867739, 1.1071487177941, 0.64052231267943);
     private Coordinate coordinate5 = new SphericCoordinate(3.741657386, 1.107148717, 0.640522312);
     private Coordinate coordinate6 = new SphericCoordinate(10.488088481702, 0.87605805059819, 0.8400523908062);
+    private Coordinate coordinate8 = new SphericCoordinate(5.0, ARCTANDIVBYZERO, ARCTANDIVBYZERO);
 
     /**
      *
@@ -57,6 +60,7 @@ public class CoordinateTest {
         assertTrue(coordinate3.equals(coordinate6));
         assertFalse(coordinate1.equals(null));
         assertFalse(coordinate4.equals(null));
+        assertTrue(coordinate7.equals(coordinate8));
     }
 
     @Test
