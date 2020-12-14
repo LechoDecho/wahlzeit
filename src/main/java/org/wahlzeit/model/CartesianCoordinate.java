@@ -16,6 +16,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
         this.x = x;
         this.y = y;
         this.z = z;
+
+        assertClassInvariants();
     }
 
     public double getX() {
@@ -55,13 +57,34 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 
         double theta = ARCTANDIVBYZERO;
-        if( this.x >= THRESHOLD)
+        if (this.x >= THRESHOLD)
             theta = Math.atan(this.y / this.x);
         double phi = ARCTANDIVBYZERO;
-        if(this.z >= THRESHOLD)
+        if (this.z >= THRESHOLD)
             phi = Math.atan(Math.sqrt(this.x * this.x + this.y * this.y) / this.z);
 
         return new SphericCoordinate(radius, theta, phi);
+    }
+
+    public double getCartesianDistance(CartesianCoordinate coordinate) {
+
+        double x = coordinate.getX() - this.getX();
+        double y = coordinate.getY() - this.getY();
+        double z = coordinate.getZ() - this.getZ();
+
+        double D = Math.sqrt(x * x + y * y + z * z);
+
+        assert Double.isFinite(D) : "Calculation resulted in NaN or infinite";
+
+        return D;
+
+    }
+
+    @Override
+    public void assertClassInvariants() {
+        assert Double.isFinite(x) : "X coordinate was NaN or Infinite";
+        assert Double.isFinite(y) : "Y coordinate was NaN or Infinite";
+        assert Double.isFinite(z) : "Z coordinate was NaN or Infinite";
     }
 
 }

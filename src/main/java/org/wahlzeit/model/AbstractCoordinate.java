@@ -17,11 +17,7 @@ public abstract class AbstractCoordinate implements Coordinate {
         CartesianCoordinate that = coordinate.asCartesianCoordinate();
         CartesianCoordinate this_ = this.asCartesianCoordinate();
 
-        double x = that.getX() - this_.getX();
-        double y = that.getY() - this_.getY();
-        double z = that.getZ() - this_.getZ();
-
-        return Math.sqrt(x * x + y * y + z * z);
+        return this_.getCartesianDistance(that);
     }
 
     @Override
@@ -34,19 +30,7 @@ public abstract class AbstractCoordinate implements Coordinate {
         SphericCoordinate that = coordinate.asSphericCoordinate();
         SphericCoordinate this_ = this.asSphericCoordinate();
 
-        double thatPhi = that.getPhi();
-        double thatTheta = that.getTheta();
-
-        double thisPhi = this_.getPhi();
-        double thisTheta = this_.getTheta();
-
-        double X = Math.cos(thatPhi) * Math.cos(thatTheta) - Math.cos(thisPhi) * Math.cos(thisTheta);
-        double Y = Math.cos(thatPhi) * Math.sin(thatTheta) - Math.cos(thisPhi) * Math.sin(thisTheta);
-        double Z = Math.sin(thatPhi) - Math.sin(thisPhi);
-
-        double C = Math.sqrt(X * X + Y * Y + Z * Z);
-
-        return 2 * Math.asin(C / 2);
+        return this_.getCentralAngle(that);
     }
 
     @Override
@@ -97,4 +81,12 @@ public abstract class AbstractCoordinate implements Coordinate {
         return coordinate.asCartesianCoordinate().getX() + "/" + coordinate.asCartesianCoordinate().getY() + "/"
                 + coordinate.asCartesianCoordinate().getZ();
     }
+
+    @Override
+    public int hashCode() {
+        CartesianCoordinate coordinate = this.asCartesianCoordinate();
+        return coordinate.hashCode();
+    }
+
+    public abstract void assertClassInvariants();
 }

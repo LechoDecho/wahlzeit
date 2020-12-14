@@ -90,4 +90,14 @@ public class CoordinateTest {
     public void testCoordinateCentralAngleNull() {
         coordinate1.getCentralAngle(null);
     }
+
+    @Test(expected = AssertionError.class)
+    public void testCartesianAssertions() {
+        Coordinate coord = new CartesianCoordinate(0,0,Double.NaN);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testSphericalAssertions() {
+        Coordinate coord = new SphericCoordinate(0,0,Double.NaN);
+    }
 }

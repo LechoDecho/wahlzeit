@@ -10,25 +10,12 @@ public class SphericCoordinate extends AbstractCoordinate {
     private double phi;
 
     public SphericCoordinate(double radius, double theta, double phi) {
-
         this.radius = radius;
         this.theta = theta;
         this.phi = phi;
-    }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(radius);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(phi);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(theta);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }  
+        assertClassInvariants();
+    }
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
@@ -48,23 +35,37 @@ public class SphericCoordinate extends AbstractCoordinate {
         return radius;
     }
 
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
     public double getTheta() {
         return theta;
-    }
-
-    public void setTheta(double theta) {
-        this.theta = theta;
     }
 
     public double getPhi() {
         return phi;
     }
 
-    public void setPhi(double phi) {
-        this.phi = phi;
+    public double getCentralAngle(SphericCoordinate coordinate) {
+        double thatPhi = coordinate.getPhi();
+        double thatTheta = coordinate.getTheta();
+
+        double thisPhi = this.getPhi();
+        double thisTheta = this.getTheta();
+
+        double X = Math.cos(thatPhi) * Math.cos(thatTheta) - Math.cos(thisPhi) * Math.cos(thisTheta);
+        double Y = Math.cos(thatPhi) * Math.sin(thatTheta) - Math.cos(thisPhi) * Math.sin(thisTheta);
+        double Z = Math.sin(thatPhi) - Math.sin(thisPhi);
+
+        double C = Math.sqrt(X * X + Y * Y + Z * Z);
+        double D = 2 * Math.asin(C / 2);
+
+        assert Double.isFinite(D) : "Calculated central angle resultet in NaN or infitie";
+
+        return D;
+    }
+
+    @Override
+    public void assertClassInvariants() {
+        assert Double.isFinite(radius) : "radius was NaN or Infinite";
+        assert Double.isFinite(phi) : "phi was NaN or Infinite";
+        assert Double.isFinite(theta) : "theta was NaN or Infinite";
     }
 }
