@@ -8,6 +8,8 @@ public class Location {
     private Coordinate coordinate;
 
     public Location(Coordinate coordinate) {
+        if (coordinate == null)
+            throw new IllegalArgumentException("Null object! Coordinate can not be null");
         this.coordinate = coordinate;
     }
 
@@ -16,6 +18,8 @@ public class Location {
     }
 
     public void setCoordinate(Coordinate coordinate) {
+        if (coordinate == null)
+            throw new IllegalArgumentException("Null object! Coordinate can not be null");
         this.coordinate = coordinate;
     }
 

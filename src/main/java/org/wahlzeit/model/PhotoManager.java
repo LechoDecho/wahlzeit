@@ -65,6 +65,9 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	public static final boolean hasPhoto(PhotoId id) {
+		if (id == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		return getPhoto(id) != null;
 	}
 	
@@ -79,6 +82,9 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	public static final Photo getPhoto(PhotoId id) {
+		if (id == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		return instance.getPhotoFromId(id);
 	}
 	
@@ -94,6 +100,9 @@ public class PhotoManager extends ObjectManager {
 	 * @methodproperties primitive
 	 */
 	protected boolean doHasPhoto(PhotoId id) {
+		if (id == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		return photoCache.containsKey(id);
 	}
 	

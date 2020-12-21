@@ -11,8 +11,8 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     public SphericCoordinate(double radius, double theta, double phi) {
         this.radius = radius;
-        this.theta = theta;
-        this.phi = phi;
+        this.theta = theta%180;
+        this.phi = phi%180;
 
         assertClassInvariants();
     }
@@ -64,8 +64,14 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public void assertClassInvariants() {
+
         assert Double.isFinite(radius) : "radius was NaN or Infinite";
+        assert radius > 0;
+
         assert Double.isFinite(phi) : "phi was NaN or Infinite";
+        assert phi >= -90 && phi <= 90;
+
         assert Double.isFinite(theta) : "theta was NaN or Infinite";
+        assert theta >= 0 && theta <= 180;
     }
 }

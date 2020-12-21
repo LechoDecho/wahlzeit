@@ -126,6 +126,11 @@ public class Photo extends DataObject {
 	 * @methodtype constructor
 	 */
 	public Photo(PhotoId myId) {
+
+		if (myId == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
+
 		id = myId;
 
 		incWriteCount();
@@ -151,6 +156,11 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
+
+		if (rset == null) {
+            throw new IllegalArgumentException("Null object! Can't read form null");
+        }
+
 		id = PhotoId.getIdFromInt(rset.getInt("id"));
 
 		ownerId = rset.getInt("owner_id");
@@ -181,6 +191,11 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	public void writeOn(ResultSet rset) throws SQLException {
+
+		if (rset == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
+
 		rset.updateInt("id", id.asInt());
 		rset.updateInt("owner_id", ownerId);
 		rset.updateString("owner_name", ownerName);
@@ -202,6 +217,11 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
+
+		if (stmt == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
+
 		stmt.setInt(pos, id.asInt());
 	}
 
@@ -293,6 +313,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setOwnerEmailAddress(EmailAddress newEmailAddress) {
+		if (newEmailAddress == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		ownerEmailAddress = newEmailAddress;
 		incWriteCount();
 	}
@@ -308,6 +331,9 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	public void setOwnerLanguage(Language newLanguage) {
+		if (newLanguage == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		ownerLanguage = newLanguage;
 		incWriteCount();
 	}
@@ -325,6 +351,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setOwnerHomePage(URL newHomePage) {
+		if (newHomePage == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		ownerHomePage = newHomePage;
 		incWriteCount();
 	}
@@ -453,6 +482,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setStatus(PhotoStatus newStatus) {
+		if (newStatus == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		status = newStatus;
 		incWriteCount();
 	}
@@ -478,6 +510,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setTags(Tags newTags) {
+		if (newTags == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		tags = newTags;
 		incWriteCount();
 	}
@@ -495,6 +530,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setLocation(Location newLocation) {
+		if (newLocation == null) {
+            throw new IllegalArgumentException("Null object!");
+        }
 		location = newLocation;
 		incWriteCount();
 	}
