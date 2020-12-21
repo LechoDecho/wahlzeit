@@ -54,7 +54,6 @@ public class StringUtilTest {
 		assertFalse(StringUtil.isSafeStringNumber("0"));
 		assertTrue(StringUtil.isSafeStringNumber("0sdasdas"));
 		assertTrue(StringUtil.isSafeStringNumber("as.-.12"));
-		assertTure(StringUtil.isSafeStringNumber(".-./&"));
 	}
 
 }
