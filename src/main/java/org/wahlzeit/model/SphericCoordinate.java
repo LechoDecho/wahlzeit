@@ -9,12 +9,17 @@ public class SphericCoordinate extends AbstractCoordinate {
     private double theta;
     private double phi;
 
-    public SphericCoordinate(double radius, double theta, double phi) {
+    private SphericCoordinate(double radius, double theta, double phi) {
         this.radius = radius;
         this.theta = theta;
         this.phi = phi;
 
         assertClassInvariants();
+    }
+
+    public static SphericCoordinate getSphericCoordinate(double radius, double theta, double phi)
+    {
+        return CoordinateValueObject.getInstance().getCoordinate(new SphericCoordinate(radius, theta, phi)).asSphericCoordinate();
     }
 
     @Override
@@ -23,7 +28,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         double x = this.radius * Math.sin(this.phi) * Math.cos(this.theta);
         double y = this.radius * Math.sin(this.phi) * Math.sin(this.theta);
         double z = this.radius * Math.cos(this.phi);
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.getCartesianCoordinate(x, y, z);
     }
 
     @Override

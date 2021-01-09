@@ -11,13 +11,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private double y;
     private double z;
 
-    public CartesianCoordinate(double x, double y, double z) {
+    private CartesianCoordinate(double x, double y, double z) {
 
         this.x = x;
         this.y = y;
         this.z = z;
 
         assertClassInvariants();
+    }
+
+    public static CartesianCoordinate  getCartesianCoordinate(double x, double y, double z) 
+    {
+        return CoordinateValueObject.getInstance().getCoordinate(new CartesianCoordinate(x, y, z)).asCartesianCoordinate();
     }
 
     public double getX() {
@@ -63,7 +68,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         if (this.z >= THRESHOLD)
             phi = Math.atan(Math.sqrt(this.x * this.x + this.y * this.y) / this.z);
 
-        return new SphericCoordinate(radius, theta, phi);
+        return SphericCoordinate.getSphericCoordinate(radius, theta, phi);
     }
 
     public double getCartesianDistance(CartesianCoordinate coordinate) {

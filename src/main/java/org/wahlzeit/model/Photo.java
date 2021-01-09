@@ -95,7 +95,7 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
-	protected Location location = new Location(new CartesianCoordinate(Math.random(), Math.random(), Math.random()));
+	protected Location location = new Location(CartesianCoordinate.getCartesianCoordinate(Math.random(), Math.random(), Math.random()));
 
 	/**
 	 * 
@@ -166,7 +166,7 @@ public class Photo extends DataObject {
 
 		tags = new Tags(rset.getString("tags"));
 
-		location = new Location(new CartesianCoordinate(rset.getDouble("x"), rset.getDouble("y"), rset.getDouble("z")));
+		location = new Location(CartesianCoordinate.getCartesianCoordinate(rset.getDouble("x"), rset.getDouble("y"), rset.getDouble("z")));
 
 		status = PhotoStatus.getFromInt(rset.getInt("status"));
 		praiseSum = rset.getInt("praise_sum");

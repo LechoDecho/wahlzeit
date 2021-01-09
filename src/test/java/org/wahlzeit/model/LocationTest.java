@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class LocationTest {
 
-	private Coordinate coordinate1 = new CartesianCoordinate(1.0, 2.0, 3.0);
+	private Coordinate coordinate1 = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0, 3.0);
 
 	private Location location1 = new Location(coordinate1);
 

@@ -33,16 +33,18 @@ public class CoordinateTest {
 
     private static final double THRESHOLD = 0.00001d;
     private static final double ARCTANDIVBYZERO = 1.5707963267949d;
+    private Coordinate coordinate1 = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0, 3.0);
+    private Coordinate coordinate11 = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0, 3.0);
+    private Coordinate coordinate2 = CartesianCoordinate.getCartesianCoordinate(1.000000001, 2.000000001, 3.000000001);
+    private Coordinate coordinate3 = CartesianCoordinate.getCartesianCoordinate(5.0, 6.0, 7.0);
+    private Coordinate coordinate7 = CartesianCoordinate.getCartesianCoordinate(0, 5.0, 0);
 
-    private Coordinate coordinate1 = new CartesianCoordinate(1.0, 2.0, 3.0);
-    private Coordinate coordinate2 = new CartesianCoordinate(1.000000001, 2.000000001, 3.000000001);
-    private Coordinate coordinate3 = new CartesianCoordinate(5.0, 6.0, 7.0);
-    private Coordinate coordinate7 = new CartesianCoordinate(0, 5.0, 0);
-
-    private Coordinate coordinate4 = new SphericCoordinate(3.7416573867739, 1.1071487177941, 0.64052231267943);
-    private Coordinate coordinate5 = new SphericCoordinate(3.741657386, 1.107148717, 0.640522312);
-    private Coordinate coordinate6 = new SphericCoordinate(10.488088481702, 0.87605805059819, 0.8400523908062);
-    private Coordinate coordinate8 = new SphericCoordinate(5.0, ARCTANDIVBYZERO, ARCTANDIVBYZERO);
+    private Coordinate coordinate4 = SphericCoordinate.getSphericCoordinate(3.7416573867739, 1.1071487177941,
+            0.64052231267943);
+    private Coordinate coordinate5 = SphericCoordinate.getSphericCoordinate(3.741657386, 1.107148717, 0.640522312);
+    private Coordinate coordinate6 = SphericCoordinate.getSphericCoordinate(10.488088481702, 0.87605805059819,
+            0.8400523908062);
+    private Coordinate coordinate8 = SphericCoordinate.getSphericCoordinate(5.0, ARCTANDIVBYZERO, ARCTANDIVBYZERO);
 
     /**
      *
@@ -50,6 +52,7 @@ public class CoordinateTest {
     @Test
     public void testCoordinateEquals() {
 
+        assertTrue(coordinate1 == coordinate11);
         assertTrue(coordinate1.equals(coordinate2));
         assertTrue(coordinate1.equals(coordinate1));
         assertFalse(coordinate1.equals(coordinate3));
@@ -93,11 +96,11 @@ public class CoordinateTest {
 
     @Test(expected = AssertionError.class)
     public void testCartesianAssertions() {
-        Coordinate coord = new CartesianCoordinate(0,0,Double.NaN);
+        Coordinate coord = CartesianCoordinate.getCartesianCoordinate(0, 0, Double.NaN);
     }
 
     @Test(expected = AssertionError.class)
     public void testSphericalAssertions() {
-        Coordinate coord = new SphericCoordinate(0,0,Double.NaN);
+        Coordinate coord = SphericCoordinate.getSphericCoordinate(0, 0, Double.NaN);
     }
 }
