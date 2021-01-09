@@ -125,7 +125,7 @@ public class StringUtil {
 	 * 
 	 */
 	public final static boolean isSafeStringNumber(String s) {
-		return isSafeWebString(s); // & isSafeQueryArg(s);
+		return isSafeWebNumber(s); // & isSafeQueryArg(s);
 	}
 		
 	/**
