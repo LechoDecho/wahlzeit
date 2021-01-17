@@ -3,6 +3,13 @@ package org.wahlzeit.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.wahlzeit.tools.PatternInstance;
+
+@PatternInstance(
+    patternName = "Factory Method",
+    participants = {"BirdPhotoFactory", "PhotoFactory"}
+)
+
 public class BirdPhotoFactory extends PhotoFactory {
 
     public BirdPhotoFactory() {

@@ -25,7 +25,12 @@ import java.sql.*;
 
 import org.wahlzeit.services.*;
 import org.wahlzeit.services.mailing.*;
+import org.wahlzeit.tools.PatternInstance;
 
+@PatternInstance (
+	patternName = "Singleton",
+	participants = {"UserManager"}
+)
 /**
  * The UserManager provides access to and manages Users (including Moderators and Administrators).
  */

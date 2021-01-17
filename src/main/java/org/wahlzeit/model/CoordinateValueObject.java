@@ -3,8 +3,12 @@ package org.wahlzeit.model;
 import java.util.HashMap;
 import java.util.Vector;
 
-import javax.lang.model.util.ElementScanner6;
+import org.wahlzeit.tools.PatternInstance;
 
+@PatternInstance(
+    patternName = "Value Object",
+    participants = {"CoodinateValueObject", "Coordinate"}
+)
 public class CoordinateValueObject {
 
     private static CoordinateValueObject instance;

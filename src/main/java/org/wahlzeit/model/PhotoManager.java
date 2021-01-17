@@ -26,7 +26,12 @@ import java.util.*;
 
 import org.wahlzeit.main.*;
 import org.wahlzeit.services.*;
+import org.wahlzeit.tools.PatternInstance;
 
+@PatternInstance(
+	patternName = "Singleton",
+	participants = {"PhotoManager"}
+)
 /**
  * A photo manager provides access to and manages photos.
  */
