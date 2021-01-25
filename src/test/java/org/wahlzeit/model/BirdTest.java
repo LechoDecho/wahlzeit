@@ -25,32 +25,18 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import org.junit.Before;
-
 /**
  * Test cases for a variety of value object classes.
  */
-public class BirdPhotoFactoryTest {
-
-    BirdPhoto birdPhoto;
-
-    BirdPhoto testPhoto;
-
-    BirdPhotoFactory bpf = new BirdPhotoFactory();
-
-    @Before public void initialize(){
-        BirdManager birdManager = BirdManager.getInstance();
-        Bird bird = birdManager.createBird("latino", 23, "latino name");
-        birdPhoto = new BirdPhoto(new PhotoId(0), bird);
-
-        testPhoto = bpf.createPhoto(new PhotoId(0), bird);
-    }
+public class BirdTest {
 
     @Test
-    public void BirdPhotoInitialization() {
-
-        assertEquals(birdPhoto.getBird(), testPhoto.getBird());
-        assertEquals(birdPhoto.getId(), testPhoto.getId());
+    public void BirdInitialization() {
+        BirdManager birdManager = BirdManager.getInstance();
+        Bird bird1 = birdManager.createBird("latino", 23, "latino name");
+        Bird bird2 = birdManager.createBird("latino", 23, "latino name");
+        assertEquals(bird1, bird2);
+ 
     }
     
 }

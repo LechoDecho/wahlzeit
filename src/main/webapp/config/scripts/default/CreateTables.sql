@@ -31,6 +31,7 @@ CREATE TABLE photos (
 	z double precision,
 	altName text,
 	span integer,
+	birdType text,
 	status integer,
 	praise_sum integer,
 	no_votes integer,

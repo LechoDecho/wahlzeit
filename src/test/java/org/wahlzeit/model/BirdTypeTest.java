@@ -23,34 +23,35 @@ package org.wahlzeit.model;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-
-import org.junit.Before;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test cases for a variety of value object classes.
  */
-public class BirdPhotoFactoryTest {
-
-    BirdPhoto birdPhoto;
-
-    BirdPhoto testPhoto;
-
-    BirdPhotoFactory bpf = new BirdPhotoFactory();
-
-    @Before public void initialize(){
-        BirdManager birdManager = BirdManager.getInstance();
-        Bird bird = birdManager.createBird("latino", 23, "latino name");
-        birdPhoto = new BirdPhoto(new PhotoId(0), bird);
-
-        testPhoto = bpf.createPhoto(new PhotoId(0), bird);
-    }
+public class BirdTypeTest {
 
     @Test
-    public void BirdPhotoInitialization() {
+    public void BirdTypeInitialization() {
+        BirdType birdSuperType = new BirdType("Greifvogel");
+        BirdType birdSuperType2 = new BirdType("Wasservogel");
+        BirdType subType1 = new BirdType("Adler");
+        BirdType subType2 = new BirdType("Falke");
+        BirdType subType3 = new BirdType("Ente");
+        BirdType subType4 = new BirdType("Ente");
 
-        assertEquals(birdPhoto.getBird(), testPhoto.getBird());
-        assertEquals(birdPhoto.getId(), testPhoto.getId());
+
+        birdSuperType.addSubType(subType1);
+        birdSuperType.addSubType(subType2);
+        birdSuperType2.addSubType(subType3);
+        birdSuperType2.addSubType(subType4);
+        
+        assertTrue(birdSuperType.isSubType(subType1));
+        assertTrue(birdSuperType.isSubType(subType2));
+        assertFalse(birdSuperType.isSubType(subType3));
+        assertEquals(subType3, subType4);
+ 
     }
     
 }

@@ -57,6 +57,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 		String span = us.getAndSaveAsString(args, BirdPhoto.SPAN);
 		String altName = us.getAndSaveAsString(args, BirdPhoto.ALTNAME);
+		String birdType = us.getAndSaveAsString(args, BirdPhoto.BIRDTYPE);
+		
 
 
 
@@ -87,8 +89,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			user.addPhoto(photo); 
 			
 			photo.setTags(new Tags(tags));
-			photo.setAltName(altName);
-			photo.setSpan(Integer.parseInt(span));
+			
+			photo.setBird(BirdManager.getInstance().createBird(birdType, Integer.parseInt(span), altName));
 			pm.savePhoto(photo);
 
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");

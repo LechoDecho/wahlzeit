@@ -5,11 +5,11 @@ import java.sql.SQLException;
 
 public class BirdPhoto extends Photo {
     
-    private int span;
-    private String altName;
+    private Bird bird;
 
     public static final String SPAN = "span";
 	public static final String ALTNAME = "altName";
+	public static final String BIRDTYPE = "birdType";
 
     public BirdPhoto() {
 
@@ -26,46 +26,32 @@ public class BirdPhoto extends Photo {
         super(rs);
     }
 
-    public BirdPhoto(PhotoId myId, int span, String altName) {
+    public BirdPhoto(PhotoId myId, Bird bird) {
 
         super(myId);
-        this.span = span;
-        this.altName = altName;
-    }
-
-    public int getSpan() {
-
-        return span;
-    }
-
-    public void setSpan(int span) {
-        
-        this.span = span;
-        incWriteCount();
-    }
-
-    public String getAltName() {
-
-        return altName;
-    }
-
-    public void setAltName(String altName) {
-        
-        this.altName = altName;
-        incWriteCount();
-    }   
+        this.bird = bird;
+    } 
 
     public void readFrom(ResultSet rset) throws SQLException {
 
-        super.readFrom(rset);   
-		span = rset.getInt("span");
-		altName = rset.getString("tags");
+        super.readFrom(rset);
+        bird = BirdManager.getInstance().createBird(rset.getString(BIRDTYPE), rset.getInt(SPAN), rset.getString(ALTNAME));
     }
 
 	public void writeOn(ResultSet rset) throws SQLException {
 
         super.writeOn(rset);
-        rset.updateInt("span", span);
-		rset.updateString("altName", altName);
+        rset.updateInt(SPAN, bird.getSpan());
+		rset.updateString(ALTNAME, bird.getAltName());
+		rset.updateString(BIRDTYPE, bird.getBirdType().getType());
+    }
+
+    public Bird getBird() {
+        return bird;
+    }
+
+    public void setBird(Bird bird) {
+        this.bird = bird;
+        incWriteCount();
     }
 }

@@ -64,11 +64,14 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 		String location = photo.getLocation().toString();
 		part.addString(Photo.LOCATION, location);
 
-		int span = ((BirdPhoto) photo).getSpan();
+		int span = ((BirdPhoto) photo).getBird().getSpan();
 		part.addString(BirdPhoto.SPAN, ""+span);
 
-		String altName =((BirdPhoto) photo).getAltName().toString();
+		String altName =((BirdPhoto) photo).getBird().getAltName().toString();
 		part.addString(BirdPhoto.ALTNAME, altName);
+
+		String birdType =((BirdPhoto) photo).getBird().getBirdType().getType().toString();
+		part.addString(BirdPhoto.BIRDTYPE, birdType);
 		
 		String photoStatus = us.cfg().asValueString(photo.getStatus());
 		part.addString(Photo.STATUS, photoStatus);

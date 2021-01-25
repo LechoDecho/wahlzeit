@@ -40,12 +40,11 @@ public class BirdPhotoFactory extends PhotoFactory {
     /**
      * 
      * @param id
-     * @param span
-     * @param altName
+     * @param bird
      * @return
      */
-    public BirdPhoto createPhoto(PhotoId id, int span, String altName)
+    public BirdPhoto createPhoto(PhotoId id, Bird bird)
     {
-        return new BirdPhoto(id, span, altName);
+        return new BirdPhoto(id, bird);
     }
 }

@@ -32,14 +32,16 @@ public class BirdPhotoTest {
 
     @Test
     public void BirdPhotoInitialization() {
-        BirdPhoto testBird = new BirdPhoto(new PhotoId(0), 23, "latino name");
+        BirdManager birdManager = BirdManager.getInstance();
+        Bird bird1 = birdManager.createBird("latino", 23, "latino name");
+        Bird bird2 = birdManager.createBird("latino", 23, "latino name");
+        BirdPhoto testBird = new BirdPhoto(new PhotoId(0), bird1);
         BirdPhoto testBird2 = new BirdPhoto();
 
-        testBird2.setAltName("latino name");
-        testBird2.setSpan(23);
+        testBird2.setBird(bird2);
 
-        assertEquals(23, testBird.getSpan());
-        assertEquals("latino name", testBird.getAltName());
+        assertEquals(23, testBird.getBird().getSpan());
+        assertEquals("latino name", testBird.getBird().getAltName());
 
         assertNotEquals(testBird, testBird2);
     }
