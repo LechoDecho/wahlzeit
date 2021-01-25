@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class BirdType {
-    
+
     protected BirdType superType = null;
     protected HashSet<BirdType> subTypes = new HashSet<BirdType>();
 
@@ -12,7 +12,7 @@ public class BirdType {
 
     public BirdType(String type) {
         this.type = type;
-    }    
+    }
 
     public Bird createInstance(int span, String altName) {
         return new Bird(this, span, altName);
@@ -38,10 +38,9 @@ public class BirdType {
 
     public boolean isSubType(BirdType subType) {
         Iterator<BirdType> itr = getSubTypeIterator();
-        while (itr.hasNext()) 
-        {
+        while (itr.hasNext()) {
             BirdType currentType = itr.next();
-            if(currentType.getSuperType().equals(this))
+            if (currentType.equals(subType))
                 return true;
         }
         return false;
